@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: bitnami/mariadb:latest
+    environment:
+      MARIADB_ROOT_PASSWORD: ESGI
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+
+  phpmyadmin:
+    image: bitnami/phpmyadmin:latest
+    environment:
+      DATABASE_HOST: mariadb
+      DATABASE_PORT_NUMBER: 3306
+      DATABASE_USER: root
+      DATABASE_PASSWORD: ESGI
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+
+volumes:
+    mariadb_data:
